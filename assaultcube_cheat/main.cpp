@@ -71,15 +71,27 @@ int main() {
 
 	//cout << "0x" << dynamicPtrBaseAddr << endl;
 
-	std::vector<unsigned int> healthoffset = { 0xEC };
+	std::vector<unsigned int> healthoffset = { 0xEC }; // Health Offset
 	uintptr_t healthAddr = FindDMAAddy(hProcess, dynamicPtrBaseAddr, healthoffset);
 
-	//cout << "0x" << healthAddr << endl;
+	std::vector<unsigned int> pistol_ammo_offset = { 0x12C }; // Pistol Ammo Offset
+	uintptr_t pistol_ammo_Addr = FindDMAAddy(hProcess, dynamicPtrBaseAddr, pistol_ammo_offset);
+
+	std::vector<unsigned int> rifle_ammo_offset = { 0x140 }; // Rifle Ammo Offset
+	uintptr_t rifle_ammo_Addr = FindDMAAddy(hProcess, dynamicPtrBaseAddr, rifle_ammo_offset);
+
+	/*cout << "0x" << healthAddr << endl;
+	cout << "0x" << pistol_ammo_Addr << endl;
+	cout << "0x" << rifle_ammo_Addr << endl;*/
 	
 
 
 	int h = 100;
+	int pistol = 10;
+	int rifle = 100;
 	cout << "God Mode: On" << endl;
+	cout << "Unlimited Pistol Ammo: On" << endl;
+	cout << "Unlimited Rifle Ammo: On" << endl;
 	//WriteProcessMemory(hProcess, (BYTE*)healthAddr, &h, sizeof(h), nullptr);
 	
 	//DWORD health_mem_address = 0x008E279C; //this has to be change everytime restart the game (0x<change here>)
@@ -89,6 +101,8 @@ int main() {
 	while (true) {
 
 		WriteProcessMemory(hProcess, (BYTE*)healthAddr, &h, sizeof(h), nullptr);
+		WriteProcessMemory(hProcess, (BYTE*)pistol_ammo_Addr, &pistol, sizeof(pistol), nullptr);
+		WriteProcessMemory(hProcess, (BYTE*)rifle_ammo_Addr, &rifle, sizeof(rifle), nullptr);
 
 	//	mem.Write<int>(health2, h);
 	//	/*mem.Write<int>(health_mem_address, 10000);
